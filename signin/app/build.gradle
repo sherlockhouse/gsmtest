@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        applicationId "com.google.samples.quickstart.signin"
+        minSdkVersion 18
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
+    // Resolve dependency differences between app and tests
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:27.1.0'
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../../keys/test.jks')
+            storePassword '123456'
+            keyAlias '123456'
+            keyPassword '123456'
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // Dependency for Google Sign-In
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
+    // Dependencies for the REST API example
+    implementation 'com.google.api-client:google-api-client:1.22.0'
+    implementation 'com.google.api-client:google-api-client-android:1.22.0'
+    implementation 'com.google.apis:google-api-services-people:v1-rev139-1.22.0'
+
+    // UiAutomatorTesting
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.0.0'
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+}
+
+apply plugin: 'com.google.gms.google-services'
+
